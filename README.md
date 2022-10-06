@@ -12,10 +12,10 @@ Newsletter signup using Mailchimp.
     ```javascript
     export const weatherApiKey = "your api key here";
     ```
--   Express.js
-    -   Inside project run `npm install express`
--   Body Parser
-    -   Inside project run `npm install body-parser`
+-   Node modules - inside project run `npm install express body-parser request`
+    -   Express
+    -   Body Parser
+    -   Request
 
 ## Includes
 
