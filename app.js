@@ -10,9 +10,11 @@ const port = 3000;
 app.use(bodyParser.urlencoded({extended: true})); // this is for parsing data from html form
 
 // __dirname is only available with CJS. Since I am using ESM I need to get it another way
-// const __dirname = path.resolve();  // method 1.. apparently not totally correct? https://stackoverflow.com/questions/8817423/why-is-dirname-not-defined-in-node-repl
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// static items like other js or css files will not load unless you define where the server should start looking for those files.
+app.use(express.static(__dirname));
 
 // -------------------------------------------------------------
 // ---------------------- Listening ----------------------------
