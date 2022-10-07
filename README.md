@@ -2,8 +2,6 @@
 
 Newsletter signup using Mailchimp.
 
--------- the below has not yet been updated --------
-
 ## Dependencies
 
 -   OpenWeatherMap API
@@ -12,10 +10,8 @@ Newsletter signup using Mailchimp.
     ```javascript
     export const weatherApiKey = "your api key here";
     ```
--   Node modules - inside project run `npm install express body-parser request`
+-   Node modules - inside project run `npm install express`
     -   Express
-    -   Body Parser
-    -   Request
 
 ## Includes
 
@@ -23,7 +19,6 @@ Newsletter signup using Mailchimp.
     - OpenWeatherMap API usage example
 -   JS includes
     -   express
-    -   body-parser
     -   path
     -   url
     -   https
