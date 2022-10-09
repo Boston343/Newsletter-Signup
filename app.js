@@ -30,14 +30,15 @@ app.get('/', (req, res) => {
     console.log("Server is up and running.");
 
     const fileName = "signup.html";
-    res.sendFile(path.join(__dirname, "/" + fileName));
-    console.log('Sent:', __dirname + "/" + fileName);
+    res.sendFile(path.join(__dirname, "\\" + fileName));
+    console.log('Sent:', __dirname + "\\" + fileName);
     
 });
 
 // -------------------------------------------------------------
 // -------------------- Post Requests --------------------------
 // -------------------------------------------------------------
+//  main functionality
 app.post('/', (req, res) => {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName; 
@@ -74,12 +75,44 @@ app.post('/', (req, res) => {
 
     // create mailchimp post request
     const mailchimpRequest = https.request(mailchimpURL, options, (response) => {
+        console.log("status: " + response.statusMessage + " (" + response.statusCode + ")" );
         response.on("data", (data) => {
             console.log(JSON.parse(data));
+            var mailchimpResponse = JSON.parse(data);
+
+            var htmlResponsePage;
+            if ( response.statusCode === 200 ) {
+                if ( mailchimpResponse.error_count === 0 ) {
+                    // send success feedback to user
+                    htmlResponsePage = "success.html";
+                    
+                }
+                else {  
+                    htmlResponsePage = "failure.html";
+                    var error_code = mailchimpResponse.errors[0].error_code;
+                    var error = mailchimpResponse.errors[0].error;
+                    // mailchimp has identified an error, log it
+                    // res.send("<h3>" + error_code + ": " + error + "</h3>");
+                    console.log("Mailchimp error: " + error_code + ": " + error);
+                }
+            }
+            else {
+                // send failure feedback to user
+                htmlResponsePage = "failure.html";
+            }
+
+            res.sendFile(path.join(__dirname, "\\" + htmlResponsePage));
+            console.log("Sent: " + __dirname + "\\" + htmlResponsePage);
         });
     });
 
     // make mailchimp post request with our data to add a person to email list
     mailchimpRequest.write(jsonData);
     mailchimpRequest.end();
+});
+
+// -------------------------------------------------------------
+//  failure page functionality for button to try again
+app.post('/failure', (req, res) => {
+    res.redirect("/");
 });
