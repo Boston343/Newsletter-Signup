@@ -1,6 +1,6 @@
 # Newsletter Signup
 
-Newsletter signup page using Mailchimp.
+Newsletter signup page using Mailchimp. Website can be viewed at https://fast-bald-mammal.glitch.me/
 
 ## Dependencies
 
@@ -10,16 +10,15 @@ Newsletter signup page using Mailchimp.
         -   https://mailchimp.com/developer/marketing/docs/fundamentals/
         -   https://mailchimp.com/developer/marketing/api/
         -   https://mailchimp.com/developer/marketing/api/lists/
-    -   Next create a file in the `Newsletter-Signup` folder called `apikeys.js` and put in it the code below. You will need to fill out the data with your Mailchimp API information.
-    ```javascript
-    export const mailchimpAPI = {
-        key: "your api key here",
-        server: "your server here",
-        listid: "your list id here"
-    }
+    -   Next create a file in the `Newsletter-Signup` folder called `.env` and put in it the text below. You will need to fill out the data with your Mailchimp API information.
     ```
--   Node modules - inside project run `npm install express`
-    -   Express
+    MAILCHIMP_KEY = your_api_key
+    MAILCHIMP_SERVER = your_server
+    MAILCHIMP_LISTID = your_list_id
+    ```
+-   Node modules - inside project run `npm install express dotenv`
+    -   express
+    -   dotenv
 
 ## Includes
 
@@ -27,6 +26,7 @@ Newsletter signup page using Mailchimp.
     - Mailchimp API usage example
 -   JS includes
     -   express
+    -   dotenv
     -   path
     -   url
     -   https
