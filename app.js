@@ -1,9 +1,11 @@
 
 import express from 'express';          // npm install express
+import dotenv from 'dotenv';            // npm install dotenv
 import path from 'path';
 import https from 'https';              // for forming external get requests
 import { fileURLToPath } from 'url';
-import { mailchimpAPI } from './apikeys.js';    // Mailchimp API - used to manage newsletter distribution list
+
+dotenv.config();    // gets the .env data for use with process.env.
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(express.urlencoded({extended: true}));  // this is for parsing data from html form
@@ -66,11 +68,11 @@ app.post('/', (req, res) => {
     // turn the JSON object into one long string for sending
     const jsonData = JSON.stringify(newData);
 
-    // setup mailchimp post request 
-    const mailchimpURL = "https://" + mailchimpAPI.server + ".api.mailchimp.com/3.0/lists/" + mailchimpAPI.listid;
+    // setup mailchimp post request
+    const mailchimpURL = "https://" + process.env.MAILCHIMP_SERVER + ".api.mailchimp.com/3.0/lists/" + process.env.MAILCHIMP_LISTID;
     const options = {
         method: "POST",
-        auth: "Reap3r:" + mailchimpAPI.key 
+        auth: "Reap3r:" + process.env.MAILCHIMP_KEY
     }
 
     // create mailchimp post request
